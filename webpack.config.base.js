@@ -4,6 +4,7 @@
 
 import path from 'path';
 import webpack from 'webpack';
+import paths from './paths';
 import { dependencies as externals } from './app/package.json';
 
 export default {
@@ -31,6 +32,17 @@ export default {
       path.join(__dirname, 'app'),
       'node_modules',
     ],
+    alias: {
+      // Support React Native Web
+      // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
+      /* eslint-disable */
+      'react-native': 'react-native-web',
+      'component': paths.appSrc + '/component',
+      'container': paths.appSrc + '/container',
+      'Redux': paths.appSrc + '/redux',
+      'config': paths.appSrc + '/config',
+      'public': paths.appPublic
+    }
   },
 
   plugins: [

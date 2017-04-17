@@ -20,7 +20,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
-
+/* eslint-disable no-unused-vars */
 const installExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
     const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
@@ -42,7 +42,7 @@ const installExtensions = async () => {
 };
 
 app.on('ready', async () => {
-  await installExtensions();
+  // await installExtensions();
 
   mainWindow = new BrowserWindow({
     show: false,
