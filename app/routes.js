@@ -1,11 +1,26 @@
-// @flow
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-import App from './containers/App';
-import HomePage from './containers/HomePage';
+import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom'
+import Timer from 'container/timer';
+import Setup from 'container/setup';
 
-export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={HomePage} />
-  </Route>
-);
+class Routes extends Component {
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/timer/:section" component={Timer} />
+          <Route path="/timer" component={Timer} />
+          <Route path="/setup" component={Setup} />
+          <Redirect from="*" to="/setup" />
+        </Switch>
+      </Router>
+    );
+  }
+}
+
+export default Routes;

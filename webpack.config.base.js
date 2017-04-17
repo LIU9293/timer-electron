@@ -11,8 +11,18 @@ export default {
   module: {
     rules: [{
       test: /\.jsx?$/,
-      use: 'babel-loader',
-      exclude: /node_modules/
+      use: {
+        loader: 'babel-loader',
+        query: {
+          plugins: [
+            ['import', [{ libraryName: 'antd', style: true }]]
+          ]
+        }
+      },
+      exclude: /node_modules/,
+    }, {
+      test: /\.less$/,
+      loader: 'style-loader!css-loader!less-loader?{modifyVars:{"@primary-color":"rgb(73, 80, 87)"}}'
     }]
   },
 
