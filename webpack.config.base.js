@@ -15,7 +15,7 @@ export default {
         loader: 'babel-loader',
         query: {
           plugins: [
-            ['import', [{ libraryName: 'antd', style: true }]]
+            ['import', [{ libraryName: 'antd'}]]
           ]
         }
       },

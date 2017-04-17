@@ -15,12 +15,12 @@ const styles = {
     left: 0,
     top: 0,
   }
-};
+}
 
-class TitleArea extends React.PureComponent {
-  render() {
+class TitleArea extends React.PureComponent{
+  render(){
     const { player } = this.props;
-    return (
+    return(
       <TitleAreaWrapper>
         <img src={wave} alt={'wave'} style={styles.wave} />
         <SideContainer type={'positive'}>
@@ -28,15 +28,16 @@ class TitleArea extends React.PureComponent {
           <HeaderLabel>{player.positive.name}</HeaderLabel>
         </SideContainer>
         <CentralContainer>
-          <HeaderLabel>{this.props.globalConfig[`section_${this.props.currentSection}`].name}</HeaderLabel>
+          <HeaderLabel>{`第七届世界华语辩论锦标赛`}</HeaderLabel>
+          <HeaderLabel>{`${this.props.sectionName}`}</HeaderLabel>
         </CentralContainer>
         <SideContainer type={'negative'}>
           <HeaderLabel>{`反方: ${player.negative.title}`}</HeaderLabel>
-          <HeaderLabel>{player.positive.name}</HeaderLabel>
+          <HeaderLabel>{player.negative.name}</HeaderLabel>
         </SideContainer>
       </TitleAreaWrapper>
-    );
+    )
   }
 }
 
-export default TitleArea;
+export default TitleArea

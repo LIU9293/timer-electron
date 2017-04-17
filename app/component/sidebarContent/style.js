@@ -6,6 +6,7 @@ export const SidebarWrapper = styled.div`
   background: white;
   text-align: left;
   color: rgba(91, 122, 121, 0.6);
+  min-height: 100%;
 `;
 
 export const StepWrapper = styled.div`

@@ -41,6 +41,7 @@ class Timer extends React.PureComponent {
             sections={this.props.Sections}
             currentSection={section}
             sectionLength={this.props.SectionLength}
+            sectionName={this.props.SectionName}
             onSidebarTrigger={this.openSidebar}
             player={this.props.PlayerInfo}
             globalConfig={this.props.Sections}
@@ -54,8 +55,9 @@ class Timer extends React.PureComponent {
 function mapStateToProps(state) {
   return {
     PlayerInfo: state.PlayerInfo,
-    Sections: state.Sections,
-    SectionLength: Object.keys(state.Sections).length,
+    Sections: state.Sections.sections,
+    SectionName: state.Sections.name,
+    SectionLength: Object.keys(state.Sections.sections).length,
   };
 }
 

@@ -90,8 +90,8 @@ export default merge(baseConfig, {
         }
       },
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader',
+        test: /\.(?:ico|gif|png|jpg|jpeg|webp|m4a)$/,
+        use: 'url-loader'
       }
     ]
   },

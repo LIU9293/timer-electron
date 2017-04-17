@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import DoubleTimer from 'component/doubleTimer';
 import SingleTimer from 'component/styledTimer';
 import StyledBackground from 'component/styledBackground';
-import StyledControl from 'component/styledControl';
+import StyledControl from "component/styledControl";
 import {
   Wrapper
 } from './style';
 
-class Section extends React.PureComponent {
+class Section extends React.PureComponent{
   static propTypes = {
     type: PropTypes.oneOf(['single', 'double']).isRequired,
     globalConfig: PropTypes.object.isRequired,
@@ -21,8 +21,8 @@ class Section extends React.PureComponent {
     pause: false,
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentSection !== this.props.currentSection && this.state.pause) {
+  componentWillReceiveProps(nextProps){
+    if(nextProps.currentSection !== this.props.currentSection && this.state.pause){
       this.setState({
         pause: false
       });
@@ -45,7 +45,7 @@ class Section extends React.PureComponent {
 
   onDoubleStop = () => {
     this.doubleTimer.stop();
-    if (this.state.pause) {
+    if(this.state.pause){
       this.setState({
         pause: false
       });
@@ -72,7 +72,7 @@ class Section extends React.PureComponent {
 
   onSingleStop = () => {
     this.singleTimer.timerCore.stop();
-    if (this.state.pause) {
+    if(this.state.pause){
       this.setState({
         pause: false
       });
@@ -85,29 +85,31 @@ class Section extends React.PureComponent {
     });
   }
 
-  render() {
+  render(){
     const { type } = this.props;
-    return (
+    return(
       <Wrapper>
         <StyledBackground
           globalConfig={this.props.globalConfig}
           player={this.props.player}
           currentSection={this.props.currentSection}
+          sectionName={this.props.sectionName}
+          sectionLength={this.props.sectionLength}
         />
         {
           type === 'single'
-          ? <SingleTimer
-            ref={timer => this.singleTimer = timer}
-            length={this.props.config.limit}
-            highlight={this.state.pause}
-            onEnd={this.onSingleEnd}
-            currentSection={this.props.currentSection}
-          />
-          : <DoubleTimer
-            ref={timer => this.doubleTimer = timer}
-            config={this.props.config}
-            currentSection={this.props.currentSection}
-          />
+          ?  <SingleTimer
+                ref={timer => this.singleTimer = timer}
+                length={this.props.config.limit}
+                highlight={this.state.pause}
+                onEnd={this.onSingleEnd}
+                currentSection={this.props.currentSection}
+             />
+          :  <DoubleTimer
+                ref={timer => this.doubleTimer = timer}
+                config={this.props.config}
+                currentSection={this.props.currentSection}
+             />
         }
         <StyledControl
           type={type}
@@ -124,7 +126,7 @@ class Section extends React.PureComponent {
           sectionLength={this.props.sectionLength}
         />
       </Wrapper>
-    );
+    )
   }
 }
 

@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Howl } from 'howler';
 
-class TimerCore extends React.PureComponent {
+const bell1 = require('public/bell1.m4a');
+const bell2 = require('public/bell2.m4a');
+const bell3 = require('public/bell3.m4a');
+
+class TimerCore extends React.PureComponent{
   static propTypes = {
     length: PropTypes.number.isRequired,
     warningLength: PropTypes.number,
@@ -10,6 +15,7 @@ class TimerCore extends React.PureComponent {
     onGoing: PropTypes.func,
     onStart: PropTypes.func,
     onPause: PropTypes.func,
+    showTimeAlert: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -20,31 +26,38 @@ class TimerCore extends React.PureComponent {
     onGoing: null,
     onStart: null,
     onPause: null,
+    showTimeAlert: true,
   }
 
-  componentWillUnmount() {
-    if (this.t) {
+  componentWillUnmount(){
+    if(this.t){
       clearInterval(this.t);
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.length !== this.props.length) {
+  componentWillReceiveProps(nextProps){
+    if(nextProps.length !== this.props.length){
       this.setState({
         secondsLeft: nextProps.length,
         going: false,
       });
-      if (this.t) {
+      if(this.t){
         clearInterval(this.t);
         this.t = null;
       }
     }
   }
 
+  componentDidMount() {
+    this.bell1 = new Howl({src: bell1});
+    this.bell2 = new Howl({src: bell2});
+    this.bell3 = new Howl({src: bell3});
+  }
+
   getTime = (sec) => {
-    const min = parseInt(sec / 60, 10);
+    const min = parseInt(sec/60, 10);
     let seconds = sec - (60 * min);
-    if (seconds < 10) {
+    if(seconds < 10) {
       seconds = `0${seconds}`;
     }
     return `${min} : ${seconds}`;
@@ -58,33 +71,48 @@ class TimerCore extends React.PureComponent {
   t = null
 
   minusOne = () => {
-    if (this.state.secondsLeft <= 0) {
+    if(this.state.secondsLeft <= 0){
+      if(this.props.showTimeAlert){
+        this.bell2.play();
+      }
       this.onEnd();
       return;
+    }
+    if(this.state.secondsLeft === 31 && this.props.showTimeAlert){
+      this.bell1.play();
+    }
+    if(this.state.secondsLeft === 5 && this.props.showTimeAlert){
+      this.bell3.play();
     }
     this.setState({
       secondsLeft: this.state.secondsLeft - 1,
     }, () => {
-      if (this.props.onGoing) {
+      if(this.props.onGoing){
         this.props.onGoing(this.state.secondsLeft);
       }
     });
   }
 
   start = () => {
-    if (this.t) {
+    if(this.t){
       return;
     }
     this.t = setInterval(this.minusOne, 1000);
+    if(this.state.secondsLeft < 5 && this.props.showTimeAlert){
+      this.bell3.play();
+    }
     this.setState({
       going: true,
     }, this.props.onStart);
   }
 
   pause = () => {
-    if (this.t) {
+    if(this.t){
       clearInterval(this.t);
       this.t = null;
+    }
+    if(this.state.secondsLeft < 5 && this.props.showTimeAlert){
+      this.bell3.pause();
     }
     this.setState({
       going: false,
@@ -92,7 +120,7 @@ class TimerCore extends React.PureComponent {
   }
 
   stop = () => {
-    if (this.t) {
+    if(this.t){
       clearInterval(this.t);
       this.t = null;
     }
@@ -103,7 +131,7 @@ class TimerCore extends React.PureComponent {
   }
 
   onEnd = () => {
-    if (this.t) {
+    if(this.t){
       clearInterval(this.t);
       this.t = null;
     }
@@ -113,16 +141,16 @@ class TimerCore extends React.PureComponent {
     }, this.props.onEnd);
   }
 
-  render() {
-    const lastTen = this.state.secondsLeft < 10 && this.state.going;
-    return (
+  render(){
+    const lastTen = this.state.secondsLeft < 6 && this.state.going;
+    return(
       <div
         style={this.props.style}
-        className={lastTen ? this.props.textClassLast : this.props.textClass}
+        className={lastTen ? this.props.textClassLast : this.props.textClass }
       >
         {this.getTime(this.state.secondsLeft)}
       </div>
-    );
+    )
   }
 }
 

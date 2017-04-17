@@ -46,11 +46,13 @@ class Setup extends React.PureComponent {
     if (this.state.type === 'xiaozusai') {
       this.props.dispatch({
         type: 'UPDATE_SECTIONS',
+        name: '小组赛',
         sections: xiaozusai
       });
     } else {
       this.props.dispatch({
         type: 'UPDATE_SECTIONS',
+        name: '淘汰赛',
         sections: taotaisai
       });
     }

@@ -5,7 +5,7 @@ import {
   DoubleTimerWrapper
 } from './style';
 
-class DoubleTimer extends React.PureComponent {
+class DoubleTimer extends React.PureComponent{
   static propTypes = {
     config: PropTypes.object.isRequired,
     onFirstEnd: PropTypes.func,
@@ -35,58 +35,62 @@ class DoubleTimer extends React.PureComponent {
   }
 
   changeSide = () => {
-    if (this.going) {
-      if (this.state.side === 'positive') {
+    if(this.going){
+      if(this.state.side === 'positive'){
         this.timer.positive.timerCore.pause();
         this.timer.negative.timerCore.start();
-        this.setState({ side: 'negative' });
+        this.setState({side: 'negative'});
       } else {
         this.timer.negative.timerCore.pause();
         this.timer.positive.timerCore.start();
-        this.setState({ side: 'positive' });
+        this.setState({side: 'positive'});
       }
-    } else if (this.state.side === 'positive') {
-      this.setState({ side: 'negative' });
     } else {
-      this.setState({ side: 'positive' });
+      if(this.state.side === 'positive'){
+        this.setState({side: 'negative'});
+      } else {
+        this.setState({side: 'positive'});
+      }
     }
   }
 
   onFirstEnd = (side) => {
-    if (side === 'positive') {
+    if(side === 'positive'){
       this.timer.negative.timerCore.start();
     } else {
       this.timer.positive.timerCore.start();
     }
-    if (this.props.onFirstEnd) {
+    if(this.props.onFirstEnd){
       this.props.onFirstEnd();
     }
   }
 
   onSecondEnd = () => {
     this.going = false;
-    if (this.props.onSecondEnd) {
+    if(this.props.onSecondEnd){
       this.props.onSecondEnd();
     }
   }
 
   onEnd = (side) => {
-    if (side === 'positive') {
-      if (this.timer.negative.timerCore.state.secondsLeft > 0) {
+    if(side === 'positive'){
+      if(this.timer.negative.timerCore.state.secondsLeft > 0){
         this.onFirstEnd('positive');
       } else {
         this.onSecondEnd();
       }
-    } else if (this.timer.positive.timerCore.state.secondsLeft > 0) {
-      this.onFirstEnd('negative');
     } else {
-      this.onSecondEnd();
+      if(this.timer.positive.timerCore.state.secondsLeft > 0){
+        this.onFirstEnd('negative');
+      } else {
+        this.onSecondEnd();
+      }
     }
   }
 
-  render() {
+  render(){
     const { limit } = this.props.config;
-    return (
+    return(
       <DoubleTimerWrapper>
         <StyledTimer
           ref={timer => this.timer.positive = timer}

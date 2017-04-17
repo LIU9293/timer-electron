@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -7,6 +8,7 @@ import { Provider } from 'react-redux';
 import store from 'Redux/store';
 import Router from './routes';
 import './app.global.css';
+import './index.less';
 
 injectTapEventPlugin();
 

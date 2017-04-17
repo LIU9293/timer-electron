@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Circle } from 'rc-progress';
+import { Circle } from 'rc-progress'
 import TimerCore from 'component/timerCore';
 import {
   TimerWrapper,
@@ -11,13 +11,13 @@ import {
 import fontStyle from './fontStyle';
 import './index.css';
 
-class StyledTimer extends React.PureComponent {
+class StyledTimer extends React.PureComponent{
   static propTypes = {
     length: PropTypes.number.isRequired
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentSection !== this.props.currentSection) {
+  componentWillReceiveProps(nextProps){
+    if(nextProps.currentSection !== this.props.currentSection){
       this.setState({
         percent: 100
       });
@@ -30,7 +30,7 @@ class StyledTimer extends React.PureComponent {
   }
 
   onGoing = (secondsLeft) => {
-    const nextPercent = parseInt(secondsLeft * 100 / this.props.length, 10);
+    const nextPercent = parseInt(secondsLeft*100/this.props.length, 10);
     this.setState({
       percent: nextPercent
     }, this.props.onGoing);
@@ -42,9 +42,9 @@ class StyledTimer extends React.PureComponent {
     }, this.props.onStop);
   }
 
-  render() {
-    const strokeColor = `hsl(0, ${100 - this.state.percent}%, ${100 - 0.4 * (100 - this.state.percent)}%)`;
-    return (
+  render(){
+    const strokeColor = `hsl(0, ${100 - this.state.percent}%, ${100 - 0.4*(100 - this.state.percent)}%)`;
+    return(
       <TimerWrapper>
         <TimerWrapperInner>
           <TimerLayer>
@@ -52,7 +52,7 @@ class StyledTimer extends React.PureComponent {
               percent={this.state.percent.toString()}
               strokeWidth="1"
               strokeColor={this.props.highlight ? strokeColor : '#eee'}
-              style={{ width: '300px', height: '300px' }}
+              style={{width: '300px', height: '300px'}}
               trailWidth="0"
               trailColor="transparent"
             />
@@ -62,7 +62,7 @@ class StyledTimer extends React.PureComponent {
               {...this.props}
               onStop={this.onStop}
               onGoing={this.onGoing}
-              style={{ ...fontStyle, color: this.props.highlight ? strokeColor : '#fff' }}
+              style={{...fontStyle, color: this.props.highlight ? strokeColor : '#fff'}}
               textClass={'timer-class'}
               textClassLast={'timer-class-last'}
               ref={timer => this.timerCore = timer}
