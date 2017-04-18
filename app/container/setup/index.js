@@ -6,7 +6,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { message } from 'antd';
 import { connect } from 'react-redux';
-import { xiaozusai, taotaisai } from 'config/rules';
+import { xiaozusai, taotaisai, biaoyansai } from 'config/rules';
 import {
   FormWrapper,
 } from './style';
@@ -28,7 +28,7 @@ class Setup extends React.PureComponent {
   }
 
   onSubmit = () => {
-    if (Object.values(this.state).indexOf('') >= 0) {
+    if (Object.values(this.state).indexOf('') >= 0 && this.state.type !== 'biaoyansai') {
       message.warning('请填写所有信息~');
       return;
     }
@@ -49,11 +49,17 @@ class Setup extends React.PureComponent {
         name: '小组赛',
         sections: xiaozusai
       });
-    } else {
+    } else if (this.state.type === 'taotaisai'){
       this.props.dispatch({
         type: 'UPDATE_SECTIONS',
         name: '淘汰赛',
         sections: taotaisai
+      });
+    } else {
+      this.props.dispatch({
+        type: 'UPDATE_SECTIONS',
+        name: '表演赛',
+        sections: biaoyansai
       });
     }
     this.props.history.push('/timer/1');
@@ -95,6 +101,7 @@ class Setup extends React.PureComponent {
           >
             <MenuItem value={'xiaozusai'} primaryText="小组赛" />
             <MenuItem value={'taotaisai'} primaryText="淘汰赛" />
+            <MenuItem value={'biaoyansai'} primaryText="表演赛" />
           </SelectField>
           <RaisedButton
             label="确定"

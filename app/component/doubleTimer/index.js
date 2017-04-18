@@ -13,7 +13,7 @@ class DoubleTimer extends React.PureComponent{
   }
 
   state = {
-    side: this.props.config.start
+    side: this.props.config.start,
   };
   going = false;
   timer = {};
@@ -57,8 +57,10 @@ class DoubleTimer extends React.PureComponent{
   onFirstEnd = (side) => {
     if(side === 'positive'){
       this.timer.negative.timerCore.start();
+      this.setState({side: 'negative'});
     } else {
       this.timer.positive.timerCore.start();
+      this.setState({side: 'positive'});
     }
     if(this.props.onFirstEnd){
       this.props.onFirstEnd();
@@ -67,6 +69,9 @@ class DoubleTimer extends React.PureComponent{
 
   onSecondEnd = () => {
     this.going = false;
+    this.setState({
+      side: this.props.config.start
+    });
     if(this.props.onSecondEnd){
       this.props.onSecondEnd();
     }

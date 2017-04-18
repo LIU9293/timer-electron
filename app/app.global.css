@@ -32,3 +32,23 @@ body {
   width: 0px;
   background-color: transparent;
 }
+
+.text-last {
+  animation: zoomOut 1s infinite ease-in-out;
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale3d(.9, .9, .9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale3d(1.4, 1.4, 1.4);
+    opacity: 0.7;
+  }
+}
+
+.text-highlight {
+  text-shadow: #fff 0 0 10px;
+}

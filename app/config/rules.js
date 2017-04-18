@@ -201,3 +201,24 @@ export const taotaisai = {
     limit: 150,
   }
 };
+
+export const biaoyansai = {
+  section_1: {
+    name: '陈词',
+    type: 'single',
+    side: '',
+    limit: 240,
+  },
+  section_2: {
+    name: '质询',
+    type: 'single',
+    side: '',
+    limit: 180,
+  },
+  section_3: {
+    name: '总结陈词',
+    type: 'single',
+    side: '',
+    limit: 180,
+  }
+}

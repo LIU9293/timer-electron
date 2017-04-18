@@ -33,6 +33,18 @@ class TimerCore extends React.PureComponent{
     if(this.t){
       clearInterval(this.t);
     }
+    if(this.bell1){
+      this.bell1.unload();
+      this.bell1 = null;
+    }
+    if(this.bell2){
+      this.bell2.unload();
+      this.bell2 = null;
+    }
+    if(this.bell3){
+      this.bell3.unload();
+      this.bell3 = null;
+    }
   }
 
   componentWillReceiveProps(nextProps){

@@ -26,6 +26,8 @@ class SidebarContent extends React.PureComponent{
             {mySteps}
           </Steps>
         </StepWrapper>
+        <hr style={{margin: '20px 0', backgroundColor: 'rgba(91, 122, 121, 0.6)'}} />
+        <NavLink to={`/setup`}>{'返回设置'}</NavLink>
       </SidebarWrapper>
     )
   }

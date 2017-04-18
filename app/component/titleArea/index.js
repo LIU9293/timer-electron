@@ -23,18 +23,26 @@ class TitleArea extends React.PureComponent{
     return(
       <TitleAreaWrapper>
         <img src={wave} alt={'wave'} style={styles.wave} />
-        <SideContainer type={'positive'}>
-          <HeaderLabel>{`正方: ${player.positive.title}`}</HeaderLabel>
-          <HeaderLabel>{player.positive.name}</HeaderLabel>
-        </SideContainer>
-        <CentralContainer>
+        {
+          this.props.sectionName !== '表演赛'
+          &&
+          <SideContainer type={'positive'}>
+            <HeaderLabel>{`正方: ${player.positive.title}`}</HeaderLabel>
+            <HeaderLabel>{player.positive.name}</HeaderLabel>
+          </SideContainer>
+        }
+        <CentralContainer style={{width: this.props.sectionName === '表演赛' ? '100%' : 'auto'}}>
           <HeaderLabel>{`第七届世界华语辩论锦标赛`}</HeaderLabel>
           <HeaderLabel>{`${this.props.sectionName}`}</HeaderLabel>
         </CentralContainer>
-        <SideContainer type={'negative'}>
-          <HeaderLabel>{`反方: ${player.negative.title}`}</HeaderLabel>
-          <HeaderLabel>{player.negative.name}</HeaderLabel>
-        </SideContainer>
+        {
+          this.props.sectionName !== '表演赛'
+          &&
+          <SideContainer type={'negative'}>
+            <HeaderLabel>{`反方: ${player.negative.title}`}</HeaderLabel>
+            <HeaderLabel>{player.negative.name}</HeaderLabel>
+          </SideContainer>
+        }
       </TitleAreaWrapper>
     )
   }

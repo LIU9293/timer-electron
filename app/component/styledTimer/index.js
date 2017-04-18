@@ -43,7 +43,7 @@ class StyledTimer extends React.PureComponent{
   }
 
   render(){
-    const strokeColor = `hsl(0, ${100 - this.state.percent}%, ${100 - 0.4*(100 - this.state.percent)}%)`;
+    // const strokeColor = `hsl(0, ${100 - this.state.percent}%, ${100 - 0.4*(100 - this.state.percent)}%)`;
     return(
       <TimerWrapper>
         <TimerWrapperInner>
@@ -51,7 +51,7 @@ class StyledTimer extends React.PureComponent{
             <Circle
               percent={this.state.percent.toString()}
               strokeWidth="1"
-              strokeColor={this.props.highlight ? strokeColor : '#eee'}
+              strokeColor={'#fff'}
               style={{width: '300px', height: '300px'}}
               trailWidth="0"
               trailColor="transparent"
@@ -62,9 +62,9 @@ class StyledTimer extends React.PureComponent{
               {...this.props}
               onStop={this.onStop}
               onGoing={this.onGoing}
-              style={{...fontStyle, color: this.props.highlight ? strokeColor : '#fff'}}
-              textClass={'timer-class'}
-              textClassLast={'timer-class-last'}
+              style={{...fontStyle}}
+              textClass={this.props.highlight ? 'text text-highlight' : 'text'}
+              textClassLast={this.props.highlight ? 'text text-last text-highlight' : 'text text-last'}
               ref={timer => this.timerCore = timer}
             />
           </TimerLayer>
